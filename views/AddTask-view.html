@@ -1,0 +1,130 @@
+<div class="row">
+
+<div class="col-md-8 col-md-offset-2" ng-init="getData()">
+
+<div class="alert alert-danger" role="alert" ng-if="you_have_not_filled_dr"><p class="text-center">You have not filled Today's DR!!</p></div>
+<div class="alert alert-success" role="alert" ng-if="you_have_filled_dr"><p class="text-center">You entered <strong>{{count_of_items_in_dr}}</strong> project in DR</p></div>
+<!-- Form to fill the Deadly Report -->
+
+<form class="form-horizontal" name="AtTaskForm" novalidate ng-submit="submitForm(AtTaskForm);">
+  
+  <!--Enter AT-Task ID-->
+  <div class="form-group">
+    <label for="attaskId" class="col-sm-3 control-label">AT-Task ID</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="attaskId" name="ANattaskId" placeholder="Enter AT-Task ID" ng-model="AtTaskForm.attaskId" required valid-number>
+    </div>
+    <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANattaskId.$error.required">Required!</span></div>
+  </div>
+
+  <!-- Enter Project Name-->
+  <div class="form-group">
+    <label for="projectName" class="col-sm-3 control-label">Project Name</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="projectName" name="ANprojectName" placeholder="Enter Project Name" ng-model="AtTaskForm.projectName" required>
+    </div>
+    <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANprojectName.$error.required">Required!</span></div>
+  </div>
+
+  <!-- Enter Description -->
+  <div class="form-group">
+    <label for="projectDescription" class="col-sm-3 control-label">Project Description</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" id="projectDescription" name="ANprojectDescription" placeholder="Enter Project Description" rows="5" ng-model="AtTaskForm.projectDescription" required></textarea>
+    </div>
+    <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANprojectDescription.$error.required">Required!</span></div>
+  </div>
+
+  <!-- Enter Time Name-->
+  <div class="form-group">
+    <label for="timeSpent" class="col-sm-3 control-label">Total Time Spent</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="timeSpent" name="ANtimeSpent" placeholder="Enter Time Spent" ng-model="AtTaskForm.timeSpent" required valid-number>
+    </div>
+    <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANtimeSpent.$error.required">Required!</span></div>
+  </div>
+
+  <!-- Enter Project Status-->
+  <div class="form-group">
+    <label for="projectStatus" class="col-sm-3 control-label">Project Status</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="projectStatus" name="ANprojectStatus" placeholder="Enter Project Status" ng-model="AtTaskForm.projectStatus" required>
+    </div>
+    <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANprojectStatus.$error.required">Required!</span></div>
+  </div>
+
+  <!--Hidden input to get the id of the at-task and then on submit update the database-->
+  <input type="hidden" class="form-control" id="editAtTaskId" name="ANeditAtTaskId" placeholder="AT-Task to edit" ng-model="AtTaskForm.editAtTaskId">
+
+
+  <!-- Submit Button -->
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-7">
+      <button id="submit" type="submit" class="btn btn-default btn-lg" data-loading-text="Please wait...">Submit</button>
+    </div>
+  </div>
+
+</form><!--end Form-->
+
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>AT-TASK ID</th>
+        <th>Project Name</th>
+        <th>Project Description</th>
+        <th>Time Spent</th>
+        <th>Project Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="info in data track by $index">
+        <td>{{$index + 1}}</td>
+        <td>{{info.ATtask_id}}</td>
+        <td>{{info.project_name}}</td>
+        <td>{{info.description}}</td>
+        <td>{{info.time_spent}}</td>
+        <td>{{info.project_status}}</td>
+        <td><a ng-click="editAtTaskInformation(info.id)"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a ng-click="setDeleteAtTask(info.id)" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+      </tr>
+      <tr ng-hide="data.length > 0">
+        <td colspan="8" class="text-center text-danger">No Data to show</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- Delete model of bootstrap -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+        
+            <div class="modal-body">
+                <p>You are about to delete one track url, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="deleteAtTask" class="btn btn-danger danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End delete model -->
+
+</div>
+
+</div><!--End .row-->
