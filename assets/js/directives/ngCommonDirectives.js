@@ -4,20 +4,52 @@
 
 	/* Refer : http://stackoverflow.com/questions/19036443/angularjs-how-to-allow-only-a-number-digits-and-decimal-point-to-be-typed-in */
 
+	
 	app.directive('validNumber', function() {
 		return {
 				require: '?ngModel',
+				scope : {
+					limit : '@',
+					allowdecimal : '@',
+					inputValue : '=ngModel'
+				},
 				link: function(scope, element, attrs, ngModelCtrl) {
 					if(!ngModelCtrl) {
 						return; 
 					}
+
+					if(attrs['limit'] !== undefined || attrs['limit'] !== null){
+						var limit = parseInt(attrs['limit'], 10);
+						scope.$watch('inputValue', function(newValue,oldValue) {
+							if (newValue && newValue.length > limit) {
+	            				scope.inputValue = newValue.substring(0, limit);
+	        				}
+						});	
+					}
+					
+
 					ngModelCtrl.$parsers.push(function(val) {
 						
 						if (angular.isUndefined(val)) {
 	            			var val = '';
 	        			}	
 
-						var clean = val.replace( /[^0-9]+/g, '');
+						/* Allow decimat places */
+						if(attrs['allowdecimal'] !== undefined || attrs['allowdecimal'] !== null){
+
+							var clean = val.replace(/[^0-9\.]/g, '');
+	            			var decimalCheck = clean.split('.');
+
+				            if(!angular.isUndefined(decimalCheck[1])) {
+				                decimalCheck[1] = decimalCheck[1].slice(0,2);
+				                clean = decimalCheck[0] + '.' + decimalCheck[1];
+				            }
+
+			        	}else{
+			        		var clean = val.replace( /[^0-9]+/g, '');
+			        	}
+
+
 						if (val !== clean) {
 							ngModelCtrl.$setViewValue(clean);
 							ngModelCtrl.$render();
@@ -27,16 +59,15 @@
 
 					});
 
-				element.bind('keypress', function(event) {
-					if(event.keyCode === 32) {
-						event.preventDefault();
-					}
-				});
+					element.bind('keypress', function(event) {
+						if(event.keyCode === 32) {
+							event.preventDefault();
+						}
+					});
 			}
 		};
 	});
-
-
+	
 	/* 
 		Directive to display today's date that appears next to the logo
 		We can pass any dateFormat in the html as an attribute and then the date will be displayed based on the format

@@ -1,18 +1,32 @@
 <div class="row search">
-    <div class="col-md-6 col-md-offset-3">
+    
       <form class="form-horizontal">
-           <input type="text" class="form-control input-lg" id="search" placeholder="search">
+        <div class="col-md-3 col-md-offset-2">
+           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchUsersData">
+        </div>
+
+        <div class="col-md-3 col-md-offset-2">
+          <div class="control-group">
+            <div class="controls">
+             <div class="input-prepend input-group">
+               <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" name="dateRangePicker" id="dateRangePicker" class="form-control" value="03/18/2013 - 03/23/2013" /> 
+             </div>
+            </div>
+          </div>
+        </div><!-- End col-md-3-->
+
       </form>
-    </div>
+    
+
+    
 </div><!-- End .row -->
 
 <div class="row">
-
 <div class="col-md-8 col-md-offset-2">
-{{users}}
 <div class="table-responsive">
     
-    <table class="table table-bordered">
+
+    <table class="table table-bordered" ng-init="add = 0">
       <thead>
         <tr>
             <th width="5%">#</th>
@@ -23,82 +37,24 @@
       </thead>
 
       <tbody>
-        <tr>
-            <td>1</td>
-            <td>6th Feb 2015</td>
+
+        <tr ng-repeat="(key, value) in getUserRecords | groupBy: 'date'">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ key | dateToISO | date : 'longDate' }}</td>
             <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
+              <p ng-repeat="groupByDate in value | orderBy : 'ATtask_id'">
+                <strong>AT-{{ groupByDate.ATtask_id }} : {{ groupByDate.project_name }}</strong> - {{ groupByDate.description }} - <strong>Time Spent : {{ groupByDate.time_spent }}</strong>
+              </p>
             </td>
-            <td>8</td>
+            <td>
+             {{ value | sumFilter:'time_spent' }}
+            </td>
         </tr>
 
-        <tr>
-            <td>1</td>
-            <td>6th Feb 2015</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-            <td>8</td>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>6th Feb 2015</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-            <td>8</td>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>6th Feb 2015</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-            <td>8</td>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>6th Feb 2015</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-            <td>8</td>
-        </tr>
+        
       </tbody>  
     </table>
+
 
 </div><!-- End table-responsive-->
 

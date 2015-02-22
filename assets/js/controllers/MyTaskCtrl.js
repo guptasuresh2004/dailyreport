@@ -5,16 +5,29 @@
 			"$scope",
 			"$http",
 			'fetchRecordsDb',
-
+			
 			function(
 
 				$scope, 
 				$http, 
 				fetchRecordsDb
-
+			
 			){
 
-			$scope.users = fetchRecordsDb.getInformation();
+
+			var params = {
+				action : "getUserData"
+			};
+
+			fetchRecordsDb.getData(params).then(function(data){
+				$scope.getUserRecords = data;
+			});
+
+			$scope.$on('$viewContentLoaded', function(){
+
+			});
+			
+
 	}]);
 
 })();

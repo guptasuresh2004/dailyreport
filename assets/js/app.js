@@ -1,6 +1,8 @@
 (function(){
-	window.app = angular.module("DailyReport", [
-			'ngRoute'
+	window.app = angular.module("citrixDeadlyReport", [
+			'ngRoute',
+			'angular.filter',
+			'ui.bootstrap.datetimepicker',
 		]);
 
 
@@ -23,7 +25,7 @@
 
 		/* Daily Report Route */	
 		$routeProvider
-			.when('/DailyReport', {
+			.when('/DailyReport/:dateSearch?', {
 				templateUrl : "views/DailyReport-view.html",
 				controller	: "DailyReportCtrl"
 			});
@@ -36,10 +38,41 @@
 			});
 
 		$routeProvider
+			.when('/todo', {
+				templateUrl : "views/todo-view.html",
+				controller 	: "todoCtrl"
+			})
+
+		$routeProvider
 			.otherwise({
 				redirectTo : '/home'
 			});	
 
 	}]);
+
+
+	app.controller("headerCtrl", ["$scope", "$http", 'fetchRecordsDb', function($scope, $http, fetchRecordsDb){
+		/* Get the username via http */
+
+		
+		if(typeof(Storage) !== "undefined"){
+			if(sessionStorage.username){
+				$scope.username = sessionStorage.username;
+			}else{
+				console.log
+				var params = {
+					action : "getUsername"
+				};
+				fetchRecordsDb.getData(params).then(function(data){
+						$scope.username = data.username;
+						sessionStorage.username = data.username;
+				});
+			}
+		}
+
+		
+
+	}]);
+
 
 })(window);

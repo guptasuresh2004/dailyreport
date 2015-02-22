@@ -1,0 +1,25 @@
+<div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="20%">Role</th>
+            <th>Hours</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="statistics in getStatisticsToDispaly">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ statistics.role_name }} <strong>({{ statistics.count }})</strong></td>
+            <td>{{ statistics.Total_Hours }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">Total Hours</td>
+          <td {{ getStatisticsToDispaly }}></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+</div><!-- End table-responsive-->

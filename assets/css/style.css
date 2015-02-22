@@ -59,3 +59,12 @@ body{
 table{
 	background-color: #fff;
 }
+
+.date-picker{
+  border: none;
+  font-size: 2em;
+  font-weight: bold;
+  background : none;
+  width: 100%;
+  text-align: center;
+}

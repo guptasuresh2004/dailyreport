@@ -58,7 +58,6 @@
 					}else{
 						$scope.data = {};
 						$scope.you_have_not_filled_dr = true;
-						$scope.you_have_filled_dr = false;
 					}
 				
 				})
@@ -171,7 +170,6 @@
 				})
 
 				.success(function () {
-						console.log("success");
 						$scope.getData();
 				});
 

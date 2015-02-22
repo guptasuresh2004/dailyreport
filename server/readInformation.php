@@ -1,5 +1,5 @@
 <?php
-	/* Database name  : DailyReport */
+	/* Database name  : citrixdeadlyreport */
 	include('class/mysql_crud.php');
 
 	/* Set session first */

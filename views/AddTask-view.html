@@ -12,7 +12,7 @@
   <div class="form-group">
     <label for="attaskId" class="col-sm-3 control-label">AT-Task ID</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="attaskId" name="ANattaskId" placeholder="Enter AT-Task ID" ng-model="AtTaskForm.attaskId" required valid-number>
+      <input type="text" class="form-control" id="attaskId" name="ANattaskId" placeholder="Enter AT-Task ID" ng-model="AtTaskForm.attaskId" required valid-number limit="6">
     </div>
     <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANattaskId.$error.required">Required!</span></div>
   </div>
@@ -39,7 +39,7 @@
   <div class="form-group">
     <label for="timeSpent" class="col-sm-3 control-label">Total Time Spent</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="timeSpent" name="ANtimeSpent" placeholder="Enter Time Spent" ng-model="AtTaskForm.timeSpent" required valid-number>
+      <input type="text" class="form-control" id="timeSpent" name="ANtimeSpent" placeholder="Enter Time Spent" ng-model="AtTaskForm.timeSpent" required valid-number limit="1">
     </div>
     <div ng-show="AtTaskForm.$submitted" class="col-sm-2"><span class="label label-danger" ng-show="AtTaskForm.ANtimeSpent.$error.required">Required!</span></div>
   </div>
@@ -68,6 +68,7 @@
 
 
 <div class="table-responsive">
+
   <table class="table table-bordered">
     <thead>
       <tr>

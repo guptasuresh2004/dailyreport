@@ -1,0 +1,20 @@
+SELECT users.id, task_details.id, users.name,  task_details.date, task_details.ATtask_id, task_details.project_name, task_details.description, task_details.time_spent, task_details.project_status
+FROM users
+LEFT JOIN task_details
+ON 
+users.id=task_details.users_id
+AND
+DATE >= CURDATE( ) 
+AND DATE < CURDATE( ) + INTERVAL 1 DAY;
+
+
+SELECT role_name, sum(Hours) as Total_Hours, count(*) AS count FROM (
+SELECT users.name AS username, role.role_name AS role_name, users.role_id AS role_id, task_details.ATtask_id as ATTASK, IF(task_details.ATtask_id IS NULL,0,8) AS Hours
+FROM users
+LEFT JOIN role
+ON users.role_id = role.role_id
+LEFT JOIN task_details
+ON
+users.id = task_details.users_id AND
+DATE(DATE) = "2015-02-22" ) as T
+GROUP BY role_id

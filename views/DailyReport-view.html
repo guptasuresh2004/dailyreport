@@ -1,7 +1,7 @@
 <div class="row search">
     <div class="col-md-3 col-md-offset-2">
       <form class="form-horizontal">
-           <input type="text" class="form-control" id="search" placeholder="search">
+           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchDailyReport.$">
       </form>
     </div>
 
@@ -15,7 +15,28 @@
 </div><!-- End .row -->
 
 <div class="row">
+  <div class="col-md-2 col-md-offset-3 text-center">
+    <button ng-click="previousDate(dateDropDownInput)" class="btn btn-default" type="button">Previous Day</button>
+  </div>
 
+  <div class="col-md-2 text-center">
+    <div class="dropdown">
+    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#">
+      <input type="text" class="date-picker" data-ng-model="dateDropDownInput">
+    </a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <datetimepicker data-ng-model="dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day'  }"/>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-2 text-center">
+    <button ng-click="nextDate(dateDropDownInput)" ng-class="{'disabled': nextDatestatus}" class="btn btn-default" type="button">Next Day</button>
+  </div>
+</div>
+
+
+<div class="row">
 <div class="col-md-8 col-md-offset-2">
 
 <div class="table-responsive">
@@ -25,85 +46,33 @@
         <tr>
             <th width="5%">#</th>
             <th width="20%">Name</th>
-            <th>Deails</th>
+            <th>Details</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr>
-            <td>1</td>
-            <td>Idrish Laxmidhar</td>
+        <tr ng-repeat="(key, value) in getDailyReportInformation | groupBy : 'name' | filter :searchDailyReport">
+
+            <td>{{ $index + 1 }}</td>
+            <td>{{ key | capitalize }}</td>
             <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
+              <div ng-repeat="task_performed in value">
+                <p ng-if="task_performed.ATtask_id != null">
+                  <strong>AT-{{ task_performed.ATtask_id }} : {{ task_performed.project_name }}</strong> - {{ task_performed.description }} - <strong>Time Spent : {{ task_performed.time_spent }}</strong>
+                </p>
+                <p ng-if="task_performed.ATtask_id == null">
+                  On Leave
+                </p>
+              </div>
             </td>
         </tr>
 
-        <tr>
-            <td>2</td>
-            <td>Shantanu Joshi</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>3</td>
-            <td>Amol Barve</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>4</td>
-            <td>Mayur Dawda</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>5</td>
-            <td>Suresh Gupta</td>
-            <td>
-              <p>1) AT-123456 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. <strong>4 Hrs</strong></p>
-              <p>2) AT-654321 - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. <strong>4 Hrs</strong></p>
-            </td>
-        </tr>
-      </tbody>  
+      </tbody>
     </table>
 
 </div><!-- End table-responsive-->
 
+<get-statistics dateToGetInformation="{{dateDropDownInput}}"></get-statistics>
 
 </div><!-- End col class -->
 
