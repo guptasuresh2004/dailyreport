@@ -37,13 +37,14 @@
 <div class="col-md-8 col-md-offset-2">
 
 
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Daily Report</h3>
-  </div>
-  <div class="panel-body">
+<accordion>
+
+<accordion-group is-open="status.isFirstOpen" class="panel-info">
+    <accordion-heading>
+        Daily Report <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i>
+    </accordion-heading>
     
-      <div class="table-responsive">
+    <div class="table-responsive">
     
         <table class="table">
           <thead>
@@ -76,8 +77,10 @@
 
       </div><!-- End table-responsive-->
 
-  </div>
-</div>
+
+</accordion-group>
+
+</accordion>
 
 
 <get-statistics dateToGetInformation="{{dateDropDownInput}}"></get-statistics>

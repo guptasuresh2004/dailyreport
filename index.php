@@ -46,10 +46,11 @@
     <script type="text/javascript" src="assets/js/lib/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="assets/js/lib/moment.min.js"></script>
-    <script type="text/javascript" src="assets/js/lib/angular.min.js"></script>
-    <script type="text/javascript" src="assets/js/lib/angular-route.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular.1.2.16.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-route.1.2.16.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular-filter.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/datetimepicker.js"></script>
+    <script type="text/javascript" src="assets/js/lib/ui-bootstrap-tpls-0.12.1.js"></script>
 
     <!-- Angular Custom Code -->
     <script type="text/javascript" src="assets/js/app.js"></script>
@@ -57,6 +58,7 @@
     <script type="text/javascript" src="assets/js/controllers/AddTaskCtrl.js"></script>
     <script type="text/javascript" src="assets/js/controllers/MyTaskCtrl.js"></script>
     <script type="text/javascript" src="assets/js/controllers/DailyReportCtrl.js"></script>
+    <script type="text/javascript" src="assets/js/controllers/AllReportsCtrl.js"></script>
     <!-- Directives -->
     <script type="text/javascript" src="assets/js/directives/ngCommonDirectives.js"></script>
     <script type="text/javascript" src="assets/js/directives/getStatistics.js"></script>

@@ -1,11 +1,11 @@
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Statistics</h3>
-  </div>
-  
-  <div class="panel-body">
-    
-      <div class="table-responsive">
+<accordion>
+
+    <accordion-group is-open="status.isFirstDisabled" class="panel-info">
+        <accordion-heading>
+            Statistics <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstDisabled, 'glyphicon-chevron-right': !status.isFirstDisabled}"></i>
+        </accordion-heading>
+        
+        <div class="table-responsive">
     
         <table class="table">
           <thead>
@@ -32,10 +32,6 @@
 
       </div><!-- End table-responsive-->
 
+    </accordion-group>
 
-
-  </div>
-</div>
-
-
-
+</accordion>

@@ -141,16 +141,6 @@ users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'" GROUP 
 		/* Get information if user has entered in the db for today and if so how many records */
 		/* SELECT COUNT(1) AS `entries` FROM `task_details` WHERE `users_id` = '1' AND `date` >= CURDATE() AND date < CURDATE() + INTERVAL 1 DAY*/
 
-		if(isset($_GET['pageStart'])){
-			$pageStart = $_GET['pageStart'];
-		}
-		
-
-		if(isset($_GET['limit'])){
-			$limit = $_GET['limit'];
-		}
-
-
 		$where = "users_id = '".$user_id."'";
 		
 		$db->select($table_name,'id, ATtask_id, date(date) as date, project_name, description, time_spent, project_status', '', ''.$where.'');

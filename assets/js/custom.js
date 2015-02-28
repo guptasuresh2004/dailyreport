@@ -40,5 +40,25 @@
 		jQuery(this).parent().removeClass('in');
 	});
 
+	/* 
+		On Logout, since it redirects back to login, 
+		we can check on this page if the session is set and 
+		we can delete the session? 
+
+		Scenario : Let's say if the user logs in the system, 
+		we are using sessionStorage to store his username. 
+		If he logs out, and then some logs back in with another user, 
+		then since the username value is in the sessionStorage, 
+		it picks that that value. To avoid this, 
+		we will be deleting the sessionStorage key 
+		on login page.
+	*/
+
+	if(typeof(Storage) !== "undefined"){
+		if(sessionStorage.username){
+			sessionStorage.removeItem("username");
+		}
+	}
+
 
 })(jQuery);

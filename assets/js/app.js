@@ -4,6 +4,7 @@
 			'ngRoute',
 			'angular.filter',
 			'ui.bootstrap.datetimepicker',
+			'ui.bootstrap'
 		]);
 
 
@@ -26,7 +27,7 @@
 
 		/* Daily Report Route */	
 		$routeProvider
-			.when('/DailyReport/:dateSearch?', {
+			.when('/DailyReport', {
 				templateUrl : "views/DailyReport-view.html",
 				controller	: "DailyReportCtrl"
 			});

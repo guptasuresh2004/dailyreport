@@ -20,6 +20,10 @@
 			
 			){
 
+		$scope.status = {
+    		isFirstOpen: true,
+    		isFirstDisabled: false
+  		};
 
 		var dateToSearch, todayDate;
 		var today = new Date();
