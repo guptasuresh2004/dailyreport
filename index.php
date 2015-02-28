@@ -60,8 +60,10 @@
     <!-- Directives -->
     <script type="text/javascript" src="assets/js/directives/ngCommonDirectives.js"></script>
     <script type="text/javascript" src="assets/js/directives/getStatistics.js"></script>
+    <script type="text/javascript" src="assets/js/directives/d3Graph.js"></script>
     <!-- Services -->
     <script type="text/javascript" src="assets/js/services/ngServices.js"></script>
+    <script type="text/javascript" src="assets/js/services/d3GraphService.js"></script>
     <!-- Filters -->
     <script type="text/javascript" src="assets/js/filters/ngCommonFilters.js"></script>
 

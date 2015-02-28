@@ -68,3 +68,9 @@ table{
   width: 100%;
   text-align: center;
 }
+
+.affix {
+    position: fixed;
+    top: 0;
+    width:100%;
+  }

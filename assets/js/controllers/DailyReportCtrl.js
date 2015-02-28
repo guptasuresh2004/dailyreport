@@ -79,6 +79,7 @@
 		
 		$scope.$on("$viewContentLoaded", function(){
 			
+			
 		});
 
 

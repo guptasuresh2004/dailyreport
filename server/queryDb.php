@@ -79,16 +79,23 @@ users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'"', '', 
 	if(isset($_GET['action']) AND $_GET['action'] == "getStatisticsToDispaly"){
 		if(isset($_GET['dateSearch']) && $_GET['dateSearch']){
 				
-				$db->sql("SELECT role_name, sum(Hours) as Total_Hours, count(*) AS count FROM (
-SELECT users.name AS username, role.role_name AS role_name, users.role_id AS role_id, task_details.ATtask_id as ATTASK, IF(task_details.ATtask_id IS NULL,0,8) AS Hours
+				$db->sql(
+						"SELECT role_name, sum(Hours) as Total_Hours, count(*) AS count FROM (
+SELECT users.id as userid, users.name AS username, role.role_name AS role_name, users.role_id AS role_id, task_details.ATtask_id as ATTASK, IF(task_details.ATtask_id IS NULL,0,8) AS Hours
 FROM users
 LEFT JOIN role
 ON users.role_id = role.role_id
 LEFT JOIN task_details
 ON
 users.id = task_details.users_id AND
-DATE(DATE) = '2015-02-22' ) as T
-GROUP BY role_id");
+DATE(DATE) = '".$_GET['dateSearch']."' GROUP BY userid ) as T
+GROUP BY role_id"
+						);
+
+				/*
+				print_r($db->getSql());
+				exit();
+				*/
 
 		$count = $db->numRows();
 		if($count){
@@ -102,10 +109,47 @@ GROUP BY role_id");
 		}
 	}
 
+	/* Get information to be displayed in the graph */
+if(isset($_GET['action']) AND $_GET['action'] == "getStatisticsforGraph"){
+		if(isset($_GET['dateSearch']) && $_GET['dateSearch']){
+				
+				$db->sql(
+						'SELECT IF(task_details.time_spent IS NULL, 0, SUM(task_details.time_spent)) as time_spent, users.id, users.name, task_details.date FROM users LEFT JOIN task_details ON 
+users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'" GROUP BY users.id'
+						);
+
+				/*
+				print_r($db->getSql());
+				exit();
+				*/
+
+		$count = $db->numRows();
+		if($count){
+			$res = $db->getResult();
+		}else{
+			$res = array();
+		}
+		echo json_encode($res);
+		exit();	
+
+		}
+	}
+
+
 	/* Get a particular users data */
 	if(isset($_GET['action']) AND $_GET['action'] == "getUserData"){
 		/* Get information if user has entered in the db for today and if so how many records */
 		/* SELECT COUNT(1) AS `entries` FROM `task_details` WHERE `users_id` = '1' AND `date` >= CURDATE() AND date < CURDATE() + INTERVAL 1 DAY*/
+
+		if(isset($_GET['pageStart'])){
+			$pageStart = $_GET['pageStart'];
+		}
+		
+
+		if(isset($_GET['limit'])){
+			$limit = $_GET['limit'];
+		}
+
 
 		$where = "users_id = '".$user_id."'";
 		

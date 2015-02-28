@@ -1,62 +1,52 @@
-<div class="row search">
-    
-      <form class="form-horizontal">
-        <div class="col-md-3 col-md-offset-2">
-           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchUsersData">
-        </div>
-
-        <div class="col-md-3 col-md-offset-2">
-          <div class="control-group">
-            <div class="controls">
-             <div class="input-prepend input-group">
-               <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" name="dateRangePicker" id="dateRangePicker" class="form-control" value="03/18/2013 - 03/23/2013" /> 
-             </div>
-            </div>
-          </div>
-        </div><!-- End col-md-3-->
-
-      </form>
-    
-
-    
-</div><!-- End .row -->
-
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
-<div class="table-responsive">
-    
 
-    <table class="table table-bordered" ng-init="add = 0">
-      <thead>
-        <tr>
-            <th width="5%">#</th>
-            <th width="15%">Date</th>
-            <th width="65%">Deails</th>
-            <th width="15%">Time Spent</th>
-        </tr>
-      </thead>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h2 class="panel-title">My Task details so far...</h2>
+  </div>
+  <div class="panel-body">
 
-      <tbody>
-
-        <tr ng-repeat="(key, value) in getUserRecords | groupBy: 'date'">
-            <td>{{ $index + 1 }}</td>
-            <td>{{ key | dateToISO | date : 'longDate' }}</td>
-            <td>
-              <p ng-repeat="groupByDate in value | orderBy : 'ATtask_id'">
-                <strong>AT-{{ groupByDate.ATtask_id }} : {{ groupByDate.project_name }}</strong> - {{ groupByDate.description }} - <strong>Time Spent : {{ groupByDate.time_spent }}</strong>
-              </p>
-            </td>
-            <td>
-             {{ value | sumFilter:'time_spent' }}
-            </td>
-        </tr>
-
+      <div class="table-responsive">
+      
+      <table class="table table-striped">
         
-      </tbody>  
-    </table>
+        <thead>
+          <tr>
+              <th width="5%">#</th>
+              <th width="15%">Date</th>
+              <th width="65%">Deails</th>
+              <th width="15%">Time Spent</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr ng-repeat="(key, value) in getUserRecords | groupBy: 'date'">
+              <td>{{ $index + 1 }}</td>
+              <td>{{ key | dateToISO | date : 'longDate' }}</td>
+              <td>
+                <p ng-repeat="groupByDate in value | orderBy : 'ATtask_id'">
+                  <strong>AT-{{ groupByDate.ATtask_id }} : {{ groupByDate.project_name }}</strong> - {{ groupByDate.description }} - <strong>Time Spent : {{ groupByDate.time_spent }}</strong>
+                </p>
+              </td>
+              <td>
+               {{ value | sumFilter:'time_spent' }}
+              </td>
+          </tr>
+          
+        </tbody>  
+     
+      </table>
 
 
-</div><!-- End table-responsive-->
+      </div><!-- End table-responsive-->
+
+  </div>
+</div>
+
+
+
 
 
 </div><!-- End col class -->

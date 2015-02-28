@@ -6,13 +6,15 @@
 			"$filter",
 			"$http",
 			'fetchRecordsDb',
+			'd3BarGraph',
 
 		function(
 
 			$scope, 
 			$filter, 
 			$http, 
-			fetchRecordsDb
+			fetchRecordsDb,
+			d3BarGraph
 
 		){
 
@@ -51,13 +53,14 @@
 					}
 
 					if(obj.data.length){
-						$scope.data = obj.data;
+						$scope.myTask = obj.data;
 						$scope.you_have_filled_dr = true;
 						$scope.you_have_not_filled_dr = false;
 						$scope.count_of_items_in_dr = obj.data.length;
 					}else{
-						$scope.data = {};
+						$scope.myTask = {};
 						$scope.you_have_not_filled_dr = true;
+						$scope.you_have_filled_dr = false;
 					}
 				
 				})
@@ -146,7 +149,6 @@
 
 		/* Delete AT-Task information */
 		$scope.deleteAtTask = function(id){
-			console.log(id);
 			var urlToDelete = "server/queryDb.php?action=deletePost";
 
 			/* Default parameters that are used in the form */
@@ -176,20 +178,19 @@
 		};
 		
 
-		/* Delete confirm box after view is loaded */
+		
 		$scope.$on('$viewContentLoaded', function() {
           
-			jQuery("#deleteAtTask").on("click", function(){
+			/* Delete confirm box after view is loaded */	
+			$scope.deleteATtask = function(){
 				jQuery("#confirm-delete").modal("hide");
-    			jQuery("#confirm-delete").on('hidden.bs.modal', function () {
-    				$scope.deleteAtTask($scope.deleteId);
-    				$scope.$apply();
-				});
-	            	
-	        });
+    			$scope.deleteAtTask($scope.deleteId);
+    		}
+			/* End Delete confirm box */
 	        
+			
 		});
-		/* End Delete confirm box */
+		
 
 	}]);
 

@@ -16,7 +16,9 @@
 
 
 			var params = {
-				action : "getUserData"
+				action : "getUserData",
+				pageStart : 0,
+				limit : 5
 			};
 
 			fetchRecordsDb.getData(params).then(function(data){

@@ -1,4 +1,5 @@
 (function(){
+	
 	window.app = angular.module("citrixDeadlyReport", [
 			'ngRoute',
 			'angular.filter',
@@ -59,7 +60,6 @@
 			if(sessionStorage.username){
 				$scope.username = sessionStorage.username;
 			}else{
-				console.log
 				var params = {
 					action : "getUsername"
 				};

@@ -10,6 +10,7 @@
 	$password = $db->escapeString($_POST['password']);
 
 	$db->select('users', 'id, name, username', '', 'username = "'.$username.'" AND password = "'.$password.'"' );
+
 	$res = $db->numRows();
 	$info = $db->getResult();
 

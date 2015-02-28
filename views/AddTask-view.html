@@ -83,7 +83,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="info in data track by $index">
+      <tr ng-repeat="info in myTask track by $index">
         <td>{{$index + 1}}</td>
         <td>{{info.ATtask_id}}</td>
         <td>{{info.project_name}}</td>
@@ -93,11 +93,15 @@
         <td><a ng-click="editAtTaskInformation(info.id)"><span class="glyphicon glyphicon-edit"></span></a></td>
         <td><a ng-click="setDeleteAtTask(info.id)" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
       </tr>
-      <tr ng-hide="data.length > 0">
+      <tr ng-hide="myTask.length > 0">
         <td colspan="8" class="text-center text-danger">No Data to show</td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Bar graph information -->
+  <d3-graph datatopopulate="myTask" graphname="Task V/s Time Spent"></d3-graph>
+  <!-- End bar graph -->
 
 </div>
 
@@ -119,7 +123,7 @@
             
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a id="deleteAtTask" class="btn btn-danger danger">Delete</a>
+                <a id="deleteAtTask" class="btn btn-danger danger" ng-click="deleteATtask()">Delete</a>
             </div>
         </div>
     </div>

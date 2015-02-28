@@ -9,11 +9,9 @@
 	});
 
 	app.filter('sumFilter', function () {
-	// filter for tax sum
 	     return function(groups, toFilter) {
 	     	var total = 0; 
 	        angular.forEach(groups, function(value, key){
-	        	console.log(value.date);
 	        	total += Number(value[toFilter]);
 			});
 	        return total;
@@ -28,5 +26,7 @@
 	      }) : '';
 	    }
 	});
+
+	
 
 })();

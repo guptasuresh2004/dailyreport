@@ -1,20 +1,17 @@
 <div class="row search">
     <div class="col-md-3 col-md-offset-2">
       <form class="form-horizontal">
-           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchDailyReport.$">
+           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchDailyReport">
       </form>
     </div>
 
-    <div class="col-md-6 col-md-offset-1">
-       <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-print"></span> Print</button>
-       <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-export"></span> Export to Excel</button>
-       <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-send"></span> Send Email</button>
-
+    <div class="col-md-3 col-md-offset-2">
+       <button class="btn btn-default pull-right" type="button"><span class="glyphicon glyphicon-send"></span> Send Email</button>
     </div>
 
 </div><!-- End .row -->
 
-<div class="row">
+<div class="row well" data-spy="affix" data-offset-top="250">
   <div class="col-md-2 col-md-offset-3 text-center">
     <button ng-click="previousDate(dateDropDownInput)" class="btn btn-default" type="button">Previous Day</button>
   </div>
@@ -39,40 +36,55 @@
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 
-<div class="table-responsive">
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Daily Report</h3>
+  </div>
+  <div class="panel-body">
     
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-            <th width="5%">#</th>
-            <th width="20%">Name</th>
-            <th>Details</th>
-        </tr>
-      </thead>
+      <div class="table-responsive">
+    
+        <table class="table">
+          <thead>
+            <tr>
+                <th width="5%">#</th>
+                <th width="20%">Name</th>
+                <th>Details</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr ng-repeat="(key, value) in getDailyReportInformation | groupBy : 'name' | filter :searchDailyReport">
+          <tbody>
+            <tr ng-repeat="(key, value) in getDailyReportInformation | groupBy : 'name'">
 
-            <td>{{ $index + 1 }}</td>
-            <td>{{ key | capitalize }}</td>
-            <td>
-              <div ng-repeat="task_performed in value">
-                <p ng-if="task_performed.ATtask_id != null">
-                  <strong>AT-{{ task_performed.ATtask_id }} : {{ task_performed.project_name }}</strong> - {{ task_performed.description }} - <strong>Time Spent : {{ task_performed.time_spent }}</strong>
-                </p>
-                <p ng-if="task_performed.ATtask_id == null">
-                  On Leave
-                </p>
-              </div>
-            </td>
-        </tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ key | capitalize }}</td>
+                <td>
+                  <div ng-repeat="task_performed in value">
+                    <p ng-if="task_performed.ATtask_id != null">
+                      <strong>AT-{{ task_performed.ATtask_id }} : {{ task_performed.project_name }}</strong> - {{ task_performed.description }} - <strong>Time Spent : {{ task_performed.time_spent }}</strong>
+                    </p>
+                    <p ng-if="task_performed.ATtask_id == null" class="text-danger">
+                      On Leave
+                    </p>
+                  </div>
+                </td>
+            </tr>
 
-      </tbody>
-    </table>
+          </tbody>
+        </table>
 
-</div><!-- End table-responsive-->
+      </div><!-- End table-responsive-->
+
+  </div>
+</div>
+
 
 <get-statistics dateToGetInformation="{{dateDropDownInput}}"></get-statistics>
+
+<!-- Bar graph information -->
+<d3-graph datetogetinformation="{{dateDropDownInput}}" graphname="User V/s Time Spent"></d3-graph>
+<!-- End bar graph -->
 
 </div><!-- End col class -->
 
