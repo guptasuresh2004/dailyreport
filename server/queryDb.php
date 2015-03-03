@@ -9,9 +9,12 @@
 	/* Connect to db */
 	$db = new Database();
 	$db->connect();
-
+	
 	$table_name = "task_details";
 	$user_table_name = "users";
+	$return = array();
+	$res = array();
+	
 
 	/* Send the username from session to be displayed on the header */
 	if(isset($_GET['action']) AND $_GET['action'] == "getUsername"){
@@ -81,15 +84,15 @@ users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'"', '', 
 				
 				$db->sql(
 						"SELECT role_name, sum(Hours) as Total_Hours, count(*) AS count FROM (
-SELECT users.id as userid, users.name AS username, role.role_name AS role_name, users.role_id AS role_id, task_details.ATtask_id as ATTASK, IF(task_details.ATtask_id IS NULL,0,8) AS Hours
-FROM users
-LEFT JOIN role
-ON users.role_id = role.role_id
-LEFT JOIN task_details
-ON
-users.id = task_details.users_id AND
-DATE(DATE) = '".$_GET['dateSearch']."' GROUP BY userid ) as T
-GROUP BY role_id"
+							SELECT users.id as userid, users.name AS username, role.role_name AS role_name, users.role_id AS role_id, task_details.ATtask_id as ATTASK, IF(task_details.ATtask_id IS NULL,0,8) AS Hours
+							FROM users
+							LEFT JOIN role
+							ON users.role_id = role.role_id
+							LEFT JOIN task_details
+							ON
+							users.id = task_details.users_id AND
+							DATE(DATE) = '".$_GET['dateSearch']."' GROUP BY userid ) as T
+							GROUP BY role_id"
 						);
 
 				/*
@@ -139,16 +142,45 @@ users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'" GROUP 
 	/* Get a particular users data */
 	if(isset($_GET['action']) AND $_GET['action'] == "getUserData"){
 		/* Get information if user has entered in the db for today and if so how many records */
-		/* SELECT COUNT(1) AS `entries` FROM `task_details` WHERE `users_id` = '1' AND `date` >= CURDATE() AND date < CURDATE() + INTERVAL 1 DAY*/
-
+		
 		$where = "users_id = '".$user_id."'";
+
+		/* Get the count of records till date entered by user for pagination */
+
+		$db->sql("SELECT count(totalcount) as total 
+					FROM (
+					    SELECT count(*) as totalcount 
+					    FROM task_details 
+					    WHERE task_details.users_id = '".$user_id."' GROUP BY DATE(task_details.date)
+					) as results"
+				);
 		
-		$db->select($table_name,'id, ATtask_id, date(date) as date, project_name, description, time_spent, project_status', '', ''.$where.'');
+		//$pagination = $db->numRows();
+		$pagination = $db->getResult();
 		
+		$return["pagination"] = $pagination;
 		/*
-		$res = $db->getSql();
-		print_r($res);
+		echo "<pre>";
+		print_r($pagination);
+		echo "</pre>";
 		*/
+
+		/* Get pageNumber */
+		
+		if(isset($_GET['itemsPerPage']) && isset($_GET['currentPage'])){
+			$itemsPerPage = $_GET['itemsPerPage'];
+			$currentPage = $_GET['currentPage'];
+			$offset = ($currentPage - 1) * $itemsPerPage;
+		}
+
+
+		$db->select($table_name,'id, ATtask_id, date(date) as date, project_name, description, time_spent, project_status', '', ''.$where.'', 'DATE(date) DESC LIMIT '.$offset.', '.$itemsPerPage.'');
+		
+		
+		// $res = $db->getSql();
+		// echo $res;
+		// echo "<br />";
+		
 
 		/* Count the results that you get from select statment */
 		/* If zero, then user has not entered anything in db */
@@ -156,10 +188,29 @@ users.id=task_details.users_id AND DATE(DATE) = "'.$_GET['dateSearch'].'" GROUP 
 		$count = $db->numRows();
 		if($count){
 			$res = $db->getResult();
+			
+			$i = 0;
+			foreach ($res as $key => $value) {
+				$return[$value['date']][$i]['id'] = $value["id"];
+				$return[$value['date']][$i]['ATtask_id'] = $value["ATtask_id"];
+				$return[$value['date']][$i]['project_name'] = $value["project_name"];
+				$return[$value['date']][$i]['project_name'] = $value["project_name"];
+				$return[$value['date']][$i]['description'] = $value["description"];
+				$return[$value['date']][$i]['time_spent'] = $value["time_spent"];
+				$return[$value['date']][$i]['project_status'] = $value["project_status"];
+				$i++;
+			}
+
+			/*
+			echo "<pre>";
+			print_r($return);
+			echo "</pre>";
+			*/
+
 		}else{
 			$res = array();
 		}
-		echo json_encode($res);
+		echo json_encode($return);
 		exit();
 		
 	}

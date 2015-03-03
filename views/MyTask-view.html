@@ -21,16 +21,16 @@
         </thead>
 
         <tbody>
-
-          <tr ng-repeat="(key, value) in getUserRecords | groupBy: 'date'">
+          
+          <tr ng-repeat="value in getUserRecords | toArray">
               <td>{{ $index + 1 }}</td>
-              <td>{{ key | dateToISO | date : 'longDate' }}</td>
+              <td>{{ value.$key | date : 'longDate' }}</td>
               <td>
                 <p ng-repeat="groupByDate in value | orderBy : 'ATtask_id'">
                   <strong>AT-{{ groupByDate.ATtask_id }} : {{ groupByDate.project_name }}</strong> - {{ groupByDate.description }} - <strong>Time Spent : {{ groupByDate.time_spent }}</strong>
                 </p>
               </td>
-              <td>
+              <td align="center">
                {{ value | sumFilter:'time_spent' }}
               </td>
           </tr>
@@ -46,10 +46,9 @@
 </div>
 
 
-<!--Pagination code here
-<pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
-    <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
--->
+<!--Pagination code here -->
+<pagination items-per-page="itemsPerPage" total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
+    <pre>Page: {{currentPage}} / {{numPages}} | Total Count : {{bigTotalItems}}</pre>
 
 </div><!-- End col class -->
 

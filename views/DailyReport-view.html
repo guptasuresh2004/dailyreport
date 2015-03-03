@@ -12,11 +12,11 @@
 </div><!-- End .row -->
 
 <div class="row well" data-spy="affix" data-offset-top="250">
-  <div class="col-md-2 col-md-offset-3 text-center">
-    <button ng-click="previousDate(dateDropDownInput)" class="btn btn-default" type="button">Previous Day</button>
+  <div class="col-md-3 col-md-offset-2 text-center">
+    <button ng-click="previousDate(dateDropDownInput)" ng-class="{'disabled': previousDatestatus}" class="btn btn-default" type="button">Previous Day</button>
   </div>
 
-  <div class="col-md-2 text-center">
+  <!-- <div class="col-md-2 text-center">
     <div class="dropdown">
     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#">
       <input type="text" class="date-picker" data-ng-model="dateDropDownInput">
@@ -25,9 +25,18 @@
         <datetimepicker data-ng-model="dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day'  }"/>
       </ul>
     </div>
+  </div> -->
+  <div class="col-md-3">
+    <p class="input-group">
+      <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateDropDownInput" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
   </div>
 
-  <div class="col-md-2 text-center">
+
+  <div class="col-md-3">
     <button ng-click="nextDate(dateDropDownInput)" ng-class="{'disabled': nextDatestatus}" class="btn btn-default" type="button">Next Day</button>
   </div>
 </div>

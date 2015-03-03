@@ -3,7 +3,6 @@
 	window.app = angular.module("citrixDeadlyReport", [
 			'ngRoute',
 			'angular.filter',
-			'ui.bootstrap.datetimepicker',
 			'ui.bootstrap'
 		]);
 

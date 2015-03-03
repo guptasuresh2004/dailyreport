@@ -1,4 +1,13 @@
 <?php
+  /*
+  Enable Error Reporting
+  */
+
+  ini_set('display_startup_errors',1);
+  ini_set('display_errors',1);
+  error_reporting(-1);
+
+
   //Check if user is logged in or not
   session_start();
   if(!isset($_SESSION['is_logged_in'])){
@@ -44,12 +53,10 @@
     <script type="text/javascript" src="assets/js/lib/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="assets/js/lib/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="assets/js/lib/moment.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular.1.2.16.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular-route.1.2.16.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular-filter.min.js"></script>
-    <script type="text/javascript" src="assets/js/lib/datetimepicker.js"></script>
     <script type="text/javascript" src="assets/js/lib/ui-bootstrap-tpls-0.12.1.js"></script>
 
     <!-- Angular Custom Code -->

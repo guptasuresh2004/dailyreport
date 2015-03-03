@@ -7,19 +7,26 @@
 			getData : function(params){
 				
 				/* Get all the data for today for all the users to display in the Daily report page */
-
 				if(params.ReportForToday){
 					var ReportForToday = params.ReportForToday;
-				}
+				};
 
 				if(params.dateSearch){
 					var dateSearch = params.dateSearch;
-				}
+				};
 
 				if(params.action){
 					var action = params.action;
-				}
+				};
+				
+				if(params.itemsPerPage){
+					var itemsPerPage = params.itemsPerPage;
+				};
 
+				if(params.currentPage){
+					var currentPage = params.currentPage;
+				};
+				
 				
 				var promise = $http({
 					method : 'GET',
@@ -27,7 +34,9 @@
 					params : {
 						action : action,
 						ReportForToday : ReportForToday,
-						dateSearch : dateSearch
+						dateSearch : dateSearch,
+						itemsPerPage : itemsPerPage,
+						currentPage : currentPage
 					},
 					headers: {
     					'Content-type': 'application/json'

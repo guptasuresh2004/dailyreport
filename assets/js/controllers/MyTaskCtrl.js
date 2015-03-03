@@ -17,29 +17,36 @@
 			/*
 			Pagination code
 			*/
-			$scope.totalItems = 64;
-			$scope.currentPage = 4;
-
+			
 			$scope.setPage = function (pageNo) {
 			    $scope.currentPage = pageNo;
 			};
 
 			$scope.pageChanged = function() {
-				$log.log('Page changed to: ' + $scope.currentPage);
+				params.currentPage = $scope.currentPage;
+				/* So everytime the page changes, we need to get the records from the database */
+				fetchRecordsDb.getData(params).then(function(data){
+					delete data.pagination;
+					$scope.getUserRecords = data;
+				});	
 			};
 
-			$scope.maxSize = 5;
-			$scope.bigTotalItems = 175;
-			$scope.bigCurrentPage = 1;
+			$scope.maxSize = 10; 		//Limit number for pagination size.
+			$scope.currentPage = 1;
 
+			$scope.itemsPerPage = 5; // (Defaults: 10) : Maximum number of items per page. A value less than one indicates all items on one page.
 
 			var params = {
 				action : "getUserData",
-				maxSize : 3
+				itemsPerPage : $scope.itemsPerPage,
+				currentPage : $scope.currentPage
 			};
 
 			fetchRecordsDb.getData(params).then(function(data){
+				$scope.bigTotalItems = data.pagination[0].total;
+				delete data.pagination;
 				$scope.getUserRecords = data;
+				
 			});
 
 			$scope.$on('$viewContentLoaded', function(){

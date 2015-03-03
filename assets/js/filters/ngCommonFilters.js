@@ -10,9 +10,15 @@
 
 	app.filter('sumFilter', function () {
 	     return function(groups, toFilter) {
-	     	var total = 0; 
+	     	var total = 0;
+	     	//console.log(groups);
 	        angular.forEach(groups, function(value, key){
-	        	total += Number(value[toFilter]);
+	        	for (var key in value){
+	        		if(key == toFilter){
+	        			total += Number(value[toFilter]);		
+	        		}
+	        	}
+	        	
 			});
 	        return total;
 	     }; 
@@ -25,6 +31,25 @@
 	      		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 	      }) : '';
 	    }
+	});
+
+
+	/* 
+		Filter to convert an object to array of objects so that we can use filters on ng-repeat directive 
+		Reference : https://github.com/angular/angular.js/issues/1286#issuecomment-24649699
+	*/
+	app.filter('toArray', function () {
+    	
+    	return function (obj) {
+	        if (!(obj instanceof Object)) {
+	            return obj;
+	        }
+
+	        return Object.keys(obj).map(function (key) {
+	            return Object.defineProperty(obj[key], '$key', {__proto__: null, value: key});
+	        });
+	    }
+
 	});
 
 	
