@@ -5,18 +5,14 @@
 			'$scope',
 			'$http',
 			'fetchRecordsDb',
-			'$routeParams',
 			'$filter',
-			'$location',
 			
 		function(
 
 			$scope,
 			$http,
 			fetchRecordsDb,
-			$routeParams,
-			$filter,
-			$location
+			$filter
 			
 			){
 

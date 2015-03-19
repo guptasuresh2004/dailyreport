@@ -85,8 +85,9 @@
 
 		$scope.submitForm = function(formName){
 
+			console.log(formName);
 		     if (formName.$valid) {
-
+		    
 				var submitButton = jQuery("#submit").button('loading');
 				
 

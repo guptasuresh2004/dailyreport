@@ -25,6 +25,7 @@
 						/* We can reset the button and redirect the user to login page */
 						$submit.button('reset');
 						window.location = "http://localhost/dailyreport/index.php";
+						//window.location = "http://localhost:8080/citrix-dr/index.php";
 					}
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -47,9 +48,9 @@
 
 		Scenario : Let's say if the user logs in the system, 
 		we are using sessionStorage to store his username. 
-		If he logs out, and then some logs back in with another user, 
+		If he logs out, and then some one logs back in with another username, 
 		then since the username value is in the sessionStorage, 
-		it picks that that value. To avoid this, 
+		it picks that value. To avoid this, 
 		we will be deleting the sessionStorage key 
 		on login page.
 	*/

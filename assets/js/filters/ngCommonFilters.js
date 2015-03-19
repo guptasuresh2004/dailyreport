@@ -42,12 +42,19 @@
     	
     	return function (obj) {
 	        if (!(obj instanceof Object)) {
-	            return obj;
+	        	return obj;
 	        }
 
-	        return Object.keys(obj).map(function (key) {
-	            return Object.defineProperty(obj[key], '$key', {__proto__: null, value: key});
-	        });
+	        var log = []
+	        angular.forEach(obj, function(k, v){
+	        	log = Object.keys(obj).map(function (key) {
+	        		return Object.defineProperty(obj[key], '$key', {__proto__: null, value: key});
+	        	});
+	        	
+	        }, log);
+
+	        return log;
+			
 	    }
 
 	});

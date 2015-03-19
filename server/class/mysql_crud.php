@@ -11,11 +11,23 @@ class Database{
 	 * means that they will only be available with the 
 	 * Database class
 	 */
-	private $db_host = "localhost";  // Change as required
-	private $db_user = "root";  // Change as required
-	private $db_pass = "root";  // Change as required
-	private $db_name = "DailyReport";	// Change as required
 	
+    /* Windows settings */
+    /*
+    private $db_host = "localhost";
+    private $db_user = "root";
+    private $db_pass = "";
+    private $db_name = "dailyreport";
+    */
+    
+    /* Ubuntu settings */
+
+    private $db_host = "localhost";
+	private $db_user = "root";
+	private $db_pass = "root";
+	private $db_name = "DailyReport";
+
+
 	/*
 	 * Extra variables that are required by other function such as boolean con variable
 	 */

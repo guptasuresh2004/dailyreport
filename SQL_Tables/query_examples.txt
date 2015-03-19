@@ -31,3 +31,100 @@ DATE(DATE) = '2015-02-23' GROUP BY userid
 
 SELECT SUM(task_details.time_spent) as TimeSpent, users.id, users.name, task_details.date FROM users LEFT JOIN task_details ON 
 users.id=task_details.users_id AND DATE(DATE) = "2015-02-27" GROUP BY users.id
+
+SELECT * FROM (
+SELECT alldates._date as adate, date(task_details.date) as taskdates, task_details.users_id as users 
+FROM alldates
+LEFT JOIN 
+task_details ON 
+alldates._date BETWEEN date("2015-01-31") AND date("2015-02-28")
+) tmp
+WHERE adate = taskdates AND users = '7'
+
+SELECT ald._date, date(tdt.date)
+FROM alldates as ald
+LEFT JOIN
+task_details as tdt
+ON 
+ald._date = date(tdt.date)
+WHERE tdt.users_id = '2' and ald._date BETWEEN date("2015-02-01") AND date("2015-02-28")
+GROUP BY date(tdt.date)
+
+SELECT * 
+FROM task_details B
+    LEFT OUTER JOIN alldates A
+        ON A._date = date(B.date)
+             AND (A._date BETWEEN date("2015-02-01") AND date("2015-02-28"))
+WHERE B.users_id = '7'
+GROUP BY date(B.date)
+
+SELECT * FROM alldates A LEFT OUTER JOIN testdate T
+ON A._date = T.date1
+AND	A._date >= '2015-03-01' 
+AND A._date <= '2015-03-07'
+
+SELECT * FROM alldates A LEFT OUTER JOIN testdate T
+ON A._date = T.date1
+WHERE A._date BETWEEN '2015-03-01' AND '2015-03-07'
+
+SELECT A._date AS TaskDate, T.name AS TaskName FROM alldates A LEFT OUTER JOIN testdate T
+ON A._date = T.date1
+WHERE A._date BETWEEN '2015-03-01' AND '2015-03-07'
+ORDER by A._date
+
+SELECT DISTINCT date(B.date) 
+FROM alldates A LEFT OUTER JOIN task_details B
+ON A._date = date(B.date)             
+AND B.users_id = '7'
+AND A._date BETWEEN '2015-02-01' AND '2015-02-28'
+
+/* Working query */
+SELECT A._date, B.*
+FROM alldates A
+LEFT OUTER JOIN task_details B 
+ON A._date = date( B.date ) 
+AND B.users_id = 7
+WHERE
+(A._date
+BETWEEN  date('2015-02-01')
+AND  date('2015-02-28'))
+GROUP BY (A._date)
+ORDER BY `A`.`_date` ASC
+
+/* Grouping for pagination */
+http://stackoverflow.com/questions/18113803/mysql-group-concat-group-by-on-multiple-fields
+
+SELECT 'club' group_type, GROUP_CONCAT(details SEPARATOR '|') details
+  FROM
+(
+  SELECT CONCAT(club_name, ';', GROUP_CONCAT(DISTINCT email)) details
+    FROM member
+   GROUP BY club_name
+) a
+UNION ALL
+SELECT 'region' group_type, GROUP_CONCAT(details SEPARATOR '|') details
+  FROM
+(
+  SELECT CONCAT(region, ';', GROUP_CONCAT(DISTINCT email)) details
+    FROM member
+   GROUP BY region
+) a
+UNION ALL
+SELECT 'zone' group_type, GROUP_CONCAT(details SEPARATOR '|') details
+  FROM
+(
+  SELECT CONCAT(zone, ';', GROUP_CONCAT(DISTINCT email)) details
+    FROM member
+   GROUP BY zone
+) a
+
+
+/* Test Group BY */
+	SELECT date(date) as mydate, 
+	GROUP_CONCAT(project_name SEPARATOR ' | ') as project_names,
+	GROUP_CONCAT(description SEPARATOR ' | ') as project_description,
+	GROUP_CONCAT(ATtask_id SEPARATOR ' | ') as project_attask_id,
+	GROUP_CONCAT(time_spent SEPARATOR ' | ') as time_spent,
+	SUM(time_spent) as total_timespent,
+	GROUP_CONCAT(project_status SEPARATOR ' | ') as project_status
+	FROM `task_details` WHERE users_id = '7' GROUP BY date(date) LIMIT 0,10

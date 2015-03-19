@@ -1,54 +1,52 @@
 <div class="row">
-<div class="col-md-8 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
 
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h2 class="panel-title">My Task details so far...</h2>
-  </div>
-  <div class="panel-body">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2 class="panel-title">My Task details so far...</h2>
+      </div>
+      <div class="panel-body">
 
-      <div class="table-responsive">
-      
-      <table class="table table-striped">
-        
-        <thead>
-          <tr>
-              <th width="5%">#</th>
-              <th width="15%">Date</th>
-              <th width="65%">Deails</th>
-              <th width="15%">Time Spent</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          
-          <tr ng-repeat="value in getUserRecords | toArray">
-              <td>{{ $index + 1 }}</td>
-              <td>{{ value.$key | date : 'longDate' }}</td>
-              <td>
-                <p ng-repeat="groupByDate in value | orderBy : 'ATtask_id'">
-                  <strong>AT-{{ groupByDate.ATtask_id }} : {{ groupByDate.project_name }}</strong> - {{ groupByDate.description }} - <strong>Time Spent : {{ groupByDate.time_spent }}</strong>
-                </p>
-              </td>
-              <td align="center">
-               {{ value | sumFilter:'time_spent' }}
-              </td>
-          </tr>
-          
-        </tbody>  
-     
-      </table>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            
+            <thead>
+              <tr>
+                <th width="5%">#</th>
+                <th width="15%">Date</th>
+                <th width="65%">Deails</th>
+                <th width="15%">Time Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="value in getUserRecords.userrecords">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ value.mydate | date : 'longDate' }}</td>
+                <td>
+                  <p>
+                    <strong>AT-{{ value.project_attask_id }} : {{ value.project_names }}</strong> - {{ value.project_description }} - <strong>Time Spent : {{ value.time_spent }}</strong>
+                  </p>
+                </td>
+                <td align="center">
+                 {{ value.total_timespent }}
+               </td>
+             </tr>
+             
+           </tbody>  
+           
+         </table>
 
 
-      </div><!-- End table-responsive-->
+       </div><!-- End table-responsive-->
 
-  </div>
-</div>
+     </div>
+   </div>
 
 
-<!--Pagination code here -->
+<!--Pagination code here 
 <pagination items-per-page="itemsPerPage" total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
-    <pre>Page: {{currentPage}} / {{numPages}} | Total Count : {{bigTotalItems}}</pre>
+-->
+<button type="button" class="btn btn-primary btn-lg btn-block"  ng-show="has_more()" ng-click="show_more()"><i class="icon-plus icon-white"></i>Show More</button>
 
 </div><!-- End col class -->
 

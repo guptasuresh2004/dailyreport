@@ -1,32 +1,22 @@
 <div class="row search">
-    <div class="col-md-3 col-md-offset-2">
-      <form class="form-horizontal">
-           <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchDailyReport">
-      </form>
-    </div>
+  <div class="col-md-3 col-md-offset-2">
+    <form class="form-horizontal">
+     <input type="text" class="form-control" id="search" placeholder="search" ng-model="searchDailyReport">
+   </form>
+ </div>
 
-    <div class="col-md-3 col-md-offset-2">
-       <button class="btn btn-default pull-right" type="button"><span class="glyphicon glyphicon-send"></span> Send Email</button>
-    </div>
+ <div class="col-md-3 col-md-offset-2">
+   <button class="btn btn-default pull-right" type="button"><span class="glyphicon glyphicon-send"></span> Send Email</button>
+ </div>
 
 </div><!-- End .row -->
 
 <div class="row well" data-spy="affix" data-offset-top="250">
-  <div class="col-md-3 col-md-offset-2 text-center">
+  <div class="col-md-2 col-md-offset-2">
     <button ng-click="previousDate(dateDropDownInput)" ng-class="{'disabled': previousDatestatus}" class="btn btn-default" type="button">Previous Day</button>
   </div>
 
-  <!-- <div class="col-md-2 text-center">
-    <div class="dropdown">
-    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#">
-      <input type="text" class="date-picker" data-ng-model="dateDropDownInput">
-    </a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        <datetimepicker data-ng-model="dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day'  }"/>
-      </ul>
-    </div>
-  </div> -->
-  <div class="col-md-3">
+  <div class="col-md-4">
     <p class="input-group">
       <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateDropDownInput" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" />
       <span class="input-group-btn">
@@ -36,58 +26,58 @@
   </div>
 
 
-  <div class="col-md-3">
-    <button ng-click="nextDate(dateDropDownInput)" ng-class="{'disabled': nextDatestatus}" class="btn btn-default" type="button">Next Day</button>
+  <div class="col-md-2">
+    <button ng-click="nextDate(dateDropDownInput)" ng-class="{'disabled': nextDatestatus}" class="btn btn-default pull-right" type="button">Next Day</button>
   </div>
 </div>
 
 
 <div class="row">
-<div class="col-md-8 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
 
 
-<accordion>
+    <accordion>
 
-<accordion-group is-open="status.isFirstOpen" class="panel-info">
-    <accordion-heading>
-        Daily Report <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i>
+      <accordion-group is-open="status.isFirstOpen" class="panel-info">
+      <accordion-heading>
+      Daily Report <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i>
     </accordion-heading>
     
     <div class="table-responsive">
-    
-        <table class="table">
-          <thead>
-            <tr>
-                <th width="5%">#</th>
-                <th width="20%">Name</th>
-                <th>Details</th>
-            </tr>
-          </thead>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="5%">#</th>
+            <th width="20%">Name</th>
+            <th>Details</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr ng-repeat="(key, value) in getDailyReportInformation | groupBy : 'name'">
+        <tbody>
+          <tr ng-repeat="(key, value) in getDailyReportInformation | groupBy : 'name'">
 
-                <td>{{ $index + 1 }}</td>
-                <td>{{ key | capitalize }}</td>
-                <td>
-                  <div ng-repeat="task_performed in value">
-                    <p ng-if="task_performed.ATtask_id != null">
-                      <strong>AT-{{ task_performed.ATtask_id }} : {{ task_performed.project_name }}</strong> - {{ task_performed.description }} - <strong>Time Spent : {{ task_performed.time_spent }}</strong>
-                    </p>
-                    <p ng-if="task_performed.ATtask_id == null" class="text-danger">
-                      On Leave
-                    </p>
-                  </div>
-                </td>
-            </tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ key | capitalize }}</td>
+            <td>
+              <div ng-repeat="task_performed in value">
+                <p ng-if="task_performed.ATtask_id != null">
+                  <strong>AT-{{ task_performed.ATtask_id }} : {{ task_performed.project_name }}</strong> - {{ task_performed.description }} - <strong>Time Spent : {{ task_performed.time_spent }}</strong>
+                </p>
+                <p ng-if="task_performed.ATtask_id == null" class="text-danger">
+                  On Leave
+                </p>
+              </div>
+            </td>
+          </tr>
 
-          </tbody>
-        </table>
+        </tbody>
+      </table>
 
-      </div><!-- End table-responsive-->
+    </div><!-- End table-responsive-->
 
 
-</accordion-group>
+  </accordion-group>
 
 </accordion>
 

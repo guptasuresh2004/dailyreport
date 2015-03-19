@@ -1,6 +1,6 @@
 (function(){
 	
-	window.app = angular.module("citrixDeadlyReport", [
+	window.app = angular.module("dailyreport", [
 			'ngRoute',
 			'angular.filter',
 			'ui.bootstrap'
@@ -38,12 +38,14 @@
 				controller	: "AllReportsCtrl"
 			});
 
+		/* ToDo */	
 		$routeProvider
 			.when('/todo', {
 				templateUrl : "views/todo-view.html",
 				controller 	: "todoCtrl"
 			})
 
+		/* Otherwise */
 		$routeProvider
 			.otherwise({
 				redirectTo : '/home'

@@ -12,40 +12,41 @@
   session_start();
   if(!isset($_SESSION['is_logged_in'])){
     header('Location: http://localhost/dailyreport/login.html');
+    //header('Location: http://localhost:8080/citrix-dr/login.html');
     exit;
   }else{
-?>
-<!DOCTYPE html>
-<html lang="en" ng-app="citrixDeadlyReport">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daily Report</title>
+    ?>
+    <!DOCTYPE html>
+    <html lang="en" ng-app="dailyreport">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Daily Report</title>
 
-    <!-- Boostrap Style -->
-  	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-  	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/datetimepicker.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+      <!-- Boostrap Style -->
+      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/datetimepicker.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.min.js"></script>
       <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-  	<div class="container-fluid" ng-controller="headerCtrl">
-  		<div ng-include src="'templates/navbar-tpl.html'"></div>	
-  	</div>
+      <![endif]-->
+    </head>
+    <body>
+     <div class="container-fluid" ng-controller="headerCtrl">
+      <div ng-include src="'templates/navbar-tpl.html'"></div>	
+    </div>
     
-  	<div class="container">
-  		<ng-view></ng-view>
-  	</div>
+    <div class="container">
+      <ng-view></ng-view>
+    </div>
 
-  	<div ng-include src="'templates/footer-tpl.html'"></div>
+    <div ng-include src="'templates/footer-tpl.html'"></div>
 
     <!-- D3 Js Library -->
     <script type="text/javascript" src="assets/js/lib/d3.js"></script>
@@ -54,8 +55,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="assets/js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/moment.min.js"></script>
-    <script type="text/javascript" src="assets/js/lib/angular.1.2.16.js"></script>
-    <script type="text/javascript" src="assets/js/lib/angular-route.1.2.16.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular.min.1.3.12.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-route-1.3.12.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular-filter.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/ui-bootstrap-tpls-0.12.1.js"></script>
 
@@ -77,7 +78,7 @@
     <script type="text/javascript" src="assets/js/filters/ngCommonFilters.js"></script>
 
   </body>
-</html>
-<?php
+  </html>
+  <?php
 }
 ?>
