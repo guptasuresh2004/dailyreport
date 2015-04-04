@@ -3,7 +3,8 @@
 	window.app = angular.module("dailyreport", [
 			'ngRoute',
 			'angular.filter',
-			'ui.bootstrap'
+			'ui.bootstrap',
+			'angular-loading-bar'
 		]);
 
 

@@ -1,16 +1,17 @@
 <?php
 
 /* Ubunu settings */
-/*
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
-*/
 
-/* Windows settings */
+
+/* Windows settings 
 $servername = "localhost";
 $username = "root";
 $password = "";
+*/
 
 //Create Connection
 $conn = new mysqli($servername, $username, $password);

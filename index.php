@@ -28,6 +28,7 @@
       <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
       <link rel="stylesheet" type="text/css" href="assets/css/datetimepicker.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/loading-bar.css">
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
       <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -59,6 +60,7 @@
     <script type="text/javascript" src="assets/js/lib/angular-route-1.3.12.js"></script>
     <script type="text/javascript" src="assets/js/lib/angular-filter.min.js"></script>
     <script type="text/javascript" src="assets/js/lib/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script type="text/javascript" src="assets/js/lib/loading-bar.js"></script>
 
     <!-- Angular Custom Code -->
     <script type="text/javascript" src="assets/js/app.js"></script>

@@ -217,25 +217,6 @@ if(isset($_GET['action']) AND $_GET['action'] == "getTodayInfo"){
 
 			}
 
-			$newstring = "";
-
-			foreach($userrecords as $key => $mergerInner){
-
-				foreach($mergerInner as $ikey => $ivalue){
-					if(is_array($mergerInner[$ikey])){
-						
-					}
-					$newstring += 
-				}
-
-				echo "=========";
-			}
-
-
-			 echo "<pre>";
-			 print_r($userrecords);
-			 echo "</pre>";
-
 			$return["userrecords"] = $userrecords;
 
 		}else{
@@ -312,11 +293,15 @@ if(isset($_GET['action']) AND $_GET['action'] == "getTodayInfo"){
 		$project_status = $db->escapeString($_POST['project_status']);
 
 		if(isset($_POST[id]) && $_POST['id'] != ""){
+
 			$id = $db->escapeString($_POST['id']);
 			$db->update($table_name,array('ATtask_id'=>$ATtask_id, 'project_name'=>$project_name, 'description'=>$description, 'time_spent'=>$time_spent, 'project_status'=>$project_status),'id="'.$id.'" AND users_id="'.$user_id.'"'); // Table name, column names and values, WHERE conditions
+			
 		}else{
+
 			$db->insert($table_name,array('users_id'=>$user_id, 'ATtask_id'=>$ATtask_id, 'project_name'=>$project_name, 'description'=>$description, 'time_spent'=>$time_spent, 'project_status'=>$project_status)); // Table name, column names and values, WHERE conditions	
 		}
+
 		$res = $db->getResult();
 
 	}
